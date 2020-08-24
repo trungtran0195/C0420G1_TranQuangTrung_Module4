@@ -24,18 +24,8 @@ public class EmailSettingController {
 
     @GetMapping("/addEmailSetting")
     public ModelAndView formAddEmail(Model model){
-        List<String> languages = new ArrayList<>();
-        List<String> pagesize = new ArrayList<>();
-        languages.add("English");
-        languages.add("Vietnamese");
-        languages.add("Japanese");
-        languages.add("Chinese");
-        pagesize.add("5");
-        pagesize.add("10");
-        pagesize.add("15");
-        pagesize.add("25");
-        pagesize.add("50");
-        pagesize.add("100");
+        List languages = emailSettingService.listLanguage();
+        List pagesize = emailSettingService.pageSizes();
         model.addAttribute("languages", languages);
         model.addAttribute("pagesize", pagesize);
         return new ModelAndView("addEmailSetting", "email", new EmailSetting());
@@ -50,18 +40,8 @@ public class EmailSettingController {
     @GetMapping("/edit/{id}")
     public ModelAndView getEditPage(@PathVariable Integer id, Model model ){
         EmailSetting email = emailSettingService.findById(id);
-        List<String> languages = new ArrayList<>();
-        List<String> pagesize = new ArrayList<>();
-        languages.add("English");
-        languages.add("Vietnamese");
-        languages.add("Japanese");
-        languages.add("Chinese");
-        pagesize.add("5");
-        pagesize.add("10");
-        pagesize.add("15");
-        pagesize.add("25");
-        pagesize.add("50");
-        pagesize.add("100");
+        List languages = emailSettingService.listLanguage();
+        List pagesize = emailSettingService.pageSizes();
         model.addAttribute("languages", languages);
         model.addAttribute("pagesize", pagesize);
         return new ModelAndView("editEmailSetting", "email", email);

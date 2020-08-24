@@ -20,6 +20,7 @@
             <td>Page Size:</td>
             <td>Spam</td>
             <td>Signature</td>
+            <td>Action</td>
         </tr>
         <c:forEach var="email" items="${emails}">
         <tr>

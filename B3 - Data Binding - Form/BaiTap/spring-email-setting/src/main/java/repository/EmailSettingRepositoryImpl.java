@@ -16,9 +16,11 @@ public class EmailSettingRepositoryImpl implements EmailSettingRepository {
         emailsettings = new HashMap<>();
         emailsettings.put(1, new EmailSetting(1,"english","25","spamfiller","once upon a time"));
     }
+
     @Override
     public List<EmailSetting> findAll() {
         return new ArrayList<>(emailsettings.values());
+
     }
 
     @Override

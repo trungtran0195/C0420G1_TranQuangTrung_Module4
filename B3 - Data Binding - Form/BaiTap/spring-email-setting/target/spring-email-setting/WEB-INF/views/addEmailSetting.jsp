@@ -9,6 +9,7 @@
 <form:form action="/emailSetting/addEmailSetting" method="post" modelAttribute="email">
     <br>
     <br>
+    <label>Id: </label>
     <form:input path="id"/>
     <br>
     <br>
