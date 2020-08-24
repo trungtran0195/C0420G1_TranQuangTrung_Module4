@@ -13,12 +13,13 @@
 </head>
 <body>
     <h3>Email Setting</h3>
-    <table>
+    <a href="/emailSetting/addEmailSetting">Add New Email Setting</a>
+    <table border="1">
         <tr>
-            <th>Languages:</th>
-            <th>Page Size:</th>
-            <th>Spam</th>
-            <th>Signature</th>
+            <td>Languages:</td>
+            <td>Page Size:</td>
+            <td>Spam</td>
+            <td>Signature</td>
         </tr>
         <c:forEach var="email" items="${emails}">
         <tr>

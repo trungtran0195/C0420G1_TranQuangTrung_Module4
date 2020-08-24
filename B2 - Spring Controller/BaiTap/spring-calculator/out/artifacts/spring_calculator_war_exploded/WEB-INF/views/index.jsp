@@ -18,6 +18,6 @@
     </td>
     </table>
 </form>
-<h1>Result: ${sumNum12}</h1>
+<h1>Result: ${calculateNumberAB}</h1>
 </body>
 </html>

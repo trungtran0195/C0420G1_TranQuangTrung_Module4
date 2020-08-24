@@ -18,8 +18,33 @@ public class EmailSettingController {
     private EmailSettingService emailSettingService = new EmailSettingServiceImpl();
 
     @GetMapping("")
-    public ModelAndView getStudentPage(){
+    public ModelAndView getEmailPage(){
         return new ModelAndView("email", "emails", emailSettingService.findAll());
+    }
+
+    @GetMapping("/addEmailSetting")
+    public ModelAndView formAddEmail(Model model){
+        List<String> languages = new ArrayList<>();
+        List<String> pagesize = new ArrayList<>();
+        languages.add("English");
+        languages.add("Vietnamese");
+        languages.add("Japanese");
+        languages.add("Chinese");
+        pagesize.add("5");
+        pagesize.add("10");
+        pagesize.add("15");
+        pagesize.add("25");
+        pagesize.add("50");
+        pagesize.add("100");
+        model.addAttribute("languages", languages);
+        model.addAttribute("pagesize", pagesize);
+        return new ModelAndView("addEmailSetting", "email", new EmailSetting());
+    }
+
+    @PostMapping("/addEmailSetting")
+    public String addEmailSetting(@ModelAttribute EmailSetting emailSetting){
+        emailSettingService.save(emailSetting);
+        return "redirect:/emailSetting";
     }
 
     @GetMapping("/edit/{id}")
@@ -44,6 +69,6 @@ public class EmailSettingController {
     @PostMapping("/edit")
     public String getEditStudent(@ModelAttribute EmailSetting emailSetting){
         emailSettingService.save(emailSetting);
-        return "email";
+        return "redirect:/emailSetting";
     }
 }

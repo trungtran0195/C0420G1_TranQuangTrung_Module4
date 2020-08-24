@@ -19,14 +19,13 @@ public class CalculatorController {
     }
 
     @GetMapping("/sum")
-//    @PostMapping("/sum")
-    public String abc(@RequestParam("number1") String numberA,@RequestParam("number2") String numberB,@RequestParam("calculate") String calculate, Model model) {
+    public String inputCalculator(@RequestParam("number1") Double numberA,@RequestParam("number2") Double numberB,@RequestParam("calculate") String calculate, Model model) {
 
-        double result = sumService.sum(Double.parseDouble(numberA),Double.parseDouble(numberB),calculate);
-        if ("Division(/)".equals(calculate) && Double.parseDouble(numberB) == 0){
-            model.addAttribute("sumNum12", "khong the thuc hien phep tinh nay");
+        double result = sumService.sum(numberA,numberB,calculate);
+        if (calculate.equals("Division(/)") && numberB == 0){
+            model.addAttribute("calculateNumberAB", "khong the thuc hien phep tinh nay");
         }else
-            model.addAttribute("sumNum12", result);
+            model.addAttribute("calculateNumberAB", result);
 
         return "index";
     }
