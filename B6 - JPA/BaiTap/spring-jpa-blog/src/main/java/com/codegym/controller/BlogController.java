@@ -22,9 +22,14 @@ public class BlogController {
     @GetMapping("/blog")
     public ModelAndView listBlogs(@PageableDefault(value = 2)Pageable pageable){
         Page<Blog> blogs = blogService.findAll(pageable);
-        ModelAndView modelAndView = new ModelAndView("list");
-        modelAndView.addObject("blogs",blogs);
-        return modelAndView;
+        if (blogs.isEmpty()) {
+            return new ModelAndView("list", "message", "Không tìm thấy blog trong DB");
+        }else {
+            ModelAndView modelAndView = new ModelAndView("list");
+            modelAndView.addObject("blogs",blogs);
+            return modelAndView;
+        }
+
     }
 
     @GetMapping("/create-blog")

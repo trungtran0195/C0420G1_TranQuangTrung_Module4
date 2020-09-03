@@ -7,6 +7,9 @@
 <body>
 <a href="/create-blog">Create new blog</a>
 <h1>Blogs</h1>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
 <table border="1">
     <tr>
         <th>Title</th>

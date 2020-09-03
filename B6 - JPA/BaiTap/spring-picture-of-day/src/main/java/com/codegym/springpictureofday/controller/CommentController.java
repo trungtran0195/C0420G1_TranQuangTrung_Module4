@@ -40,9 +40,14 @@ public class CommentController {
     @GetMapping("/update-like/{id}")
     public ModelAndView updateLike(@PathVariable("id") Long id) {
         Comment comment = commentService.findById(id);
-        comment.setTotalLike(comment.getTotalLike()+1);
-        commentService.save(comment);
-        return new ModelAndView("comment/list-comment","comments",commentService.getAll());
+        if(comment != null){
+            comment.setTotalLike(comment.getTotalLike()+1);
+            commentService.save(comment);
+            return new ModelAndView("comment/list-comment","comments",commentService.getAll());
+        }else {
+            ModelAndView modelAndView = new ModelAndView("/error.404");
+            return modelAndView;
+        }
     }
 
 }
