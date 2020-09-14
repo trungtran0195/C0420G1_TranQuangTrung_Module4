@@ -1,6 +1,7 @@
 package com.codegym.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -67,4 +68,21 @@ public class Product {
     public void setProductDetail(String productDetail) {
         this.productDetail = productDetail;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id &&
+                productPrice == product.productPrice &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(productDetail, product.productDetail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productName, productDetail, productPrice);
+    }
+
 }
