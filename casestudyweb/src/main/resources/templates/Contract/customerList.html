@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer In Contract</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <style>
+        .menu ul li{
+            margin-right: 10%;
+        }
+    </style>
+    <style>
+        body {
+            color: #566787;
+            background: #f7f5f2;
+            font-family: 'Roboto', sans-serif;
+        }
+        .table-responsive {
+            margin: 30px 0;
+        }
+        .table-wrapper {
+            min-width: 1000px;
+            background: #fff;
+            padding: 20px 25px;
+            border-radius: 3px;
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        }
+        .table-title {
+            color: #fff;
+            background: #40b2cd;
+            padding: 16px 25px;
+            margin: -20px -25px 10px;
+            border-radius: 3px 3px 0 0;
+        }
+        .table-title h2 {
+            margin: 5px 0 0;
+            font-size: 24px;
+        }
+        .search-box {
+            position: relative;
+            float: right;
+        }
+        .search-box .input-group {
+            min-width: 300px;
+            position: absolute;
+            right: 0;
+        }
+        .search-box .input-group-addon, .search-box input {
+            border-color: #ddd;
+            border-radius: 0;
+        }
+        .search-box input {
+            height: 34px;
+            padding-right: 35px;
+            background: #f4fcfd;
+            border: none;
+            border-radius: 2px !important;
+        }
+        .search-box input:focus {
+            background: #fff;
+        }
+        .search-box input::placeholder {
+            font-style: italic;
+        }
+        .search-box .input-group-addon {
+            min-width: 35px;
+            border: none;
+            background: transparent;
+            position: absolute;
+            right: 0;
+            z-index: 9;
+            padding: 6px 0;
+        }
+        .search-box i {
+            color: #a0a5b1;
+            font-size: 19px;
+            position: relative;
+            top: 2px;
+        }
+        table.table {
+            table-layout: fixed;
+            margin-top: 15px;
+        }
+        table.table tr th, table.table tr td {
+            border-color: #e9e9e9;
+        }
+        table.table th i {
+            font-size: 13px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        table.table th:first-child {
+            width: 60px;
+        }
+        table.table th:last-child {
+            width: 120px;
+        }
+        table.table td a {
+            color: #a0a5b1;
+            display: inline-block;
+            margin: 0 5px;
+        }
+        table.table td a.view {
+            color: #03A9F4;
+        }
+        table.table td a.edit {
+            color: #FFC107;
+        }
+        table.table td a.delete {
+            color: #E34724;
+        }
+        table.table td i {
+            font-size: 19px;
+        }
+    </style>
+    <style>label{
+        margin-left: 20px;
+    }
+    .datepicker{
+        /*width:180px;*/
+        margin: 0 20px 20px 0px;
+    }
+    #datepicker > span:hover{
+        cursor: pointer;
+    }</style>
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker({
+                autoclose: true,
+                todayHighlight: true
+            }).datepicker('update', new Date());
+        });
+    </script>
+    <link rel="stylesheet prefetch" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"><script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+</head>
+<body style="background-image: url('https://cdn.lifestyleasia.com/wp-content/uploads/2018/09/11142931/The-Nautilus-Maldives-Beach-Residence-exterior-1.jpg')">
+<div class="header">
+    <div class="container-fluid">
+        <div class="row" >
+            <div class="col-3">
+                <img style="width: 30%;padding: 15px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQlTaPPCcmHWMt6vGZ5QyfBTCSLcbmOys20dg&usqp=CAU">
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+</div>
+<!--end header-->
+
+<div class="menu" style="background-color: #2d3338;height: 50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-12" >
+                <ul style="list-style: none;display:flex;flex-direction: row;padding-top: 12px">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/staffList">Employee</a></li>
+                    <li><a href="/customerList">Customer</a></li>
+                    <li><a href="/serviceList">Service</a></li>
+                    <li><a href="/contractList">Contract</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end menu-->
+<br><br>
+<div>
+    <div class="content" style="height: 71vh">
+        <div class="container-fluid">
+            <div class="row" >
+                <div class="col-2" style="display: flex;flex-direction: column;margin-top: 95px" >
+                    <a href="/addContract" class="btn btn-primary" style="margin: 3px"><i class="fa fa-plus"></i> <span>Add New Contract</span></a>
+                    <a href="/addContractDetail" class="btn btn-primary" style="margin: 3px"><i class="fa fa-plus"></i> <span>Add New Extra Service Contract</span></a>                </div>
+                <div class="col-10" style="margin-top: 28px">
+                    <h2 style="color: aliceblue ;text-align: center">List All Customer In Contract</h2>
+                    <table class="table table-striped">
+                        <thead class="thead-dark" >
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date of birth</th>
+                            <th scope="col">CMND</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Customer Type</th>
+                            <th scope="col">Contract Id</th>
+                        </tr>
+                        </thead>
+                        <tbody style="background-color: #f7f5f2">
+                        <th:block th:if="${message}">
+                            <p th:text="${message}"></p>
+                        </th:block>
+                        <th:block th:each="contract : ${contracts}">
+                            <tr>
+                                <td th:text="${contract.customer.id}"></td>
+                                <td th:text="${contract.customer.name}"></td>
+                                <td th:text="${contract.customer.dayofBirth}"></td>
+                                <td th:text="${contract.customer.personalnumber}"></td>
+                                <td th:text="${contract.customer.phonenumber}"></td>
+                                <td th:text="${contract.customer.email}"></td>
+                                <td th:text="${contract.customer.address}"></td>
+                                <td th:text="${contract.customer.customerType.nameCustomerType}"></td>
+                                <td th:text="${contract.id}"></td>
+                            </tr>
+                        </th:block>
+                        </tbody>
+                    </table>
+                    <div>
+                        <a th:href="@{''(page=${contracts.number - 1})}" th:if="${contracts.hasPrevious()}">Previous</a>
+                        <span th:text="${contracts.number + 1}"></span>/<span th:text="${contracts.totalPages}"></span>
+                        <a th:href="@{''(page=${contracts.number + 1})}" th:if="${contracts.hasNext()}">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end content-->
+</body>
+</html>
