@@ -187,6 +187,8 @@
                     <td th:text="${product.getProductPrice()}"></td>
                     <td>
                         <a th:href="@{/product/{id}/view(id=${product.getId()})}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                        <a th:href="@{/product/{id}/view(id=${product.getId()})}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xe150;</i></a>
+                        <a th:href="@{/product/{id}/view(id=${product.getId()})}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xe872;</i></a>
                     </td>
                 </tr>
                 </th:each>

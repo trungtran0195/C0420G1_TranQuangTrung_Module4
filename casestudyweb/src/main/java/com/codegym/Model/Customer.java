@@ -4,17 +4,20 @@ import com.codegym.validator.UniqueID;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "KhachHang")
-public class Customer {
+public class Customer{
     @Id
     @UniqueID(message = "Id already exist")
     @Pattern(regexp = "^KH-\\d{4}$" ,message = "Mã Khách hàng có định dạng là KH-XXXX (X là số từ 0-9)")
+    @NotBlank(message = "không được để trống")
     private String id;
 
     @Column(name = "HoTen")
+    @NotBlank(message = "không được để trống")
     private String name;
 
     @Column(name = "NgaySinh")
@@ -26,14 +29,17 @@ public class Customer {
     private String personalnumber;
 
     @Column(name = "SDT")
+    @NotBlank(message = "không được để trống")
     @Pattern(regexp = "^(090|091)\\d{7}$" ,message = "Số điện thoại phải đúng định dạng 090xxxxxxx hoặc 091xxxxxxx")
     private String phonenumber;
 
     @Column(name = "Email")
+    @NotBlank(message = "không được để trống")
     @Email
     private String email;
 
     @Column(name = "DiaChi")
+    @NotBlank(message = "không được để trống")
     private String address;
 
     @OneToOne

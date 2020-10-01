@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BlogRepository extends JpaRepository<Blog,Integer> {
     Page<Blog> findAll(Pageable pageable);
-    Page<Blog> findAllByBlogNameContainingOrCategory_NameContaining(String blogTitle, String category,Pageable pageable);
+    Page<Blog> findAllByBlogNameContainingOrCategory_Name(String blogTitle, String category,Pageable pageable);
+    Page<Blog> findAllByBlogNameContaining(String blogTitle,Pageable pageable);
+    Page<Blog> findAllByCategory_Name(String category,Pageable pageable);
 }

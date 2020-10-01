@@ -9,5 +9,5 @@ public interface BlogService {
     Blog findById(int id);
     void save (Blog blog);
     void remove(int id);
-    Page<Blog> findAllBlogBySearch(String search,Pageable pageable);
+    Page<Blog> findAllBlogBySearch(String search,String by,Pageable pageable);
 }

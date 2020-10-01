@@ -8,7 +8,7 @@
 //import java.nio.file.Paths;
 //import java.util.ArrayList;
 //
-//public class WriteAndReadFileImpl implements dao.WriteAndReadFile {
+//public class WriteAndReadFileImpl implements WriteAndReadFile {
 //    protected static final String pathSave = "D:\\ProjectCodeGym\\C0420G1_TranQuangTrung_Module3\\case study\\jsp-jstl-mvc\\iNote\\src\\data\\SaveNote.csv";
 //    private static final String BIG_SPACE = "   ";
 //    private static final String SMALL_SPACE = " ";

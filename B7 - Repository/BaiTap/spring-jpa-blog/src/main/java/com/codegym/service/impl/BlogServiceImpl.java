@@ -35,7 +35,14 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Blog> findAllBlogBySearch(String search, Pageable pageable) {
-        return blogRepository.findAllByBlogNameContainingOrCategory_NameContaining(search,search,pageable);
+    public Page<Blog> findAllBlogBySearch(String search,String by, Pageable pageable) {
+        switch (by){
+            case "title":
+                return blogRepository.findAllByBlogNameContaining(search,pageable);
+            case "category":
+                return blogRepository.findAllByCategory_Name(search,pageable);
+            default:
+                return blogRepository.findAllByBlogNameContainingOrCategory_Name(search,search,pageable);
+        }
     }
 }

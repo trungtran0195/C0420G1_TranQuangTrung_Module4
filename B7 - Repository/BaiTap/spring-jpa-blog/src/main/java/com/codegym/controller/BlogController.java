@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.model.Blog;
+import com.codegym.model.FavouriteList;
 import com.codegym.service.BlogService;
 import com.codegym.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("favList")
 public class BlogController {
+    @ModelAttribute("favList")
+    public FavouriteList listFav(){
+        return new FavouriteList();
+    }
 
     @Autowired
     private BlogService blogService;
@@ -21,9 +28,8 @@ public class BlogController {
     private CategoryService categoryService;
 
     @GetMapping("/blog")
-    public ModelAndView listBlogs(@PageableDefault(2) Pageable pageable, @RequestParam(value = "search",defaultValue = "")String search,
-                                  @RequestParam(value = "by", defaultValue = "all") String by) {
-        Page<Blog> blogs = blogService.findAllBlogBySearch(search,pageable);
+    public ModelAndView listBlogs(@PageableDefault(2) Pageable pageable, @RequestParam(value = "search",defaultValue = "")String search,@RequestParam(value = "by",defaultValue = "all")String by) {
+        Page<Blog> blogs = blogService.findAllBlogBySearch(search,by,pageable);
         if (blogs.isEmpty()) {
             return new ModelAndView("list", "message", "Không tìm thấy blog trong DB");
         } else {
@@ -31,6 +37,18 @@ public class BlogController {
             modelAndView.addObject("blogs", blogs);
             modelAndView.addObject("search", search);
             return modelAndView;
+        }
+    }
+
+    @GetMapping("/view-blog/{id}")
+    public ModelAndView showBlog(@PathVariable Integer id){
+        Blog blog = blogService.findById(id);
+        if(blog != null) {
+            ModelAndView modelAndView = new ModelAndView("view");
+            modelAndView.addObject("blog", blog);
+            return modelAndView;
+        }else {
+            return new ModelAndView("list", "message", "Không tìm thấy blog nào");
         }
     }
 
@@ -75,22 +93,45 @@ public class BlogController {
     }
 
     @GetMapping("/delete-blog/{id}")
-    public ModelAndView showDeleteForm(@PathVariable Integer id){
-        Blog blog = blogService.findById(id);
-        if(blog != null) {
-            ModelAndView modelAndView = new ModelAndView("delete");
-            modelAndView.addObject("blog", blog);
-            return modelAndView;
+    public String deleteCustomer(@ModelAttribute("blog") Blog blog){
+        blogService.remove(blog.getId());
+        return "redirect:/blog";
+    }
 
+    @PostMapping("/add-fav")
+    public ModelAndView addFav(@RequestParam Integer id, @SessionAttribute("favList") FavouriteList list){
+        Blog blog = blogService.findById(id);
+        if (blog==null){
+            ModelAndView modelAndView = new ModelAndView ("list","message","error");
+            return modelAndView;
         }else {
-            ModelAndView modelAndView = new ModelAndView("/error.404");
+            list.addToList(blog);
+            ModelAndView modelAndView = new ModelAndView("view", "message", "add favourite blog");
+            modelAndView.addObject("blog", blog);
             return modelAndView;
         }
     }
 
-    @PostMapping("/delete-blog")
-    public String deleteCustomer(@ModelAttribute("blog") Blog blog){
-        blogService.remove(blog.getId());
-        return "redirect:";
+    @GetMapping("/favList")
+    public ModelAndView getFavList(@SessionAttribute("favList") FavouriteList list){
+        return new ModelAndView("favList","favList",list.getList());
     }
+
+
+    @GetMapping("/favList/{id}/add")
+    public String amountCart(@PathVariable int id, @SessionAttribute("favList")FavouriteList favList, Model model){
+        Blog blog = blogService.findById(id);
+        favList.addToList(blog);
+        model.addAttribute("favList",favList.getList());
+        return "favList";
+    }
+    @GetMapping("/favList/{id}/sub")
+    public String amountCartSub(@PathVariable int id,@SessionAttribute("favList")FavouriteList favList,Model model){
+        Blog blog = blogService.findById(id);
+        favList.sub(blog);
+        model.addAttribute("favList",favList.getList());
+        return "favList";
+    }
+
+
 }
